@@ -75,11 +75,14 @@ namespace Ecommerce.Api.Products.Tests
 
         private void CreateProducts(ProductsDbContext dbContext)
         {
-            for(int i=1; i <= 10; i++)
+            if(!dbContext.Products.Any())
             {
-                dbContext.Add(new Product() { Id = i, Name = "Product " + i, Inventory = i + 10, Price = i * 3 });
+                for (int i = 1; i <= 10; i++)
+                {
+                    dbContext.Add(new Product() { Id = i, Name = "Product " + i, Inventory = i + 10, Price = i * 3 });
+                }
+                dbContext.SaveChanges();
             }
-            dbContext.SaveChanges();
         }
     }
 }
